@@ -6,10 +6,8 @@ const connection = require("./db/db");
 app.use(express.json());
 app.use(cors());
 
-
-// app.get("",(req,res)=> {
-//     res.json({message: "Api call works"})
-// })
+const authRouter = require("./routers/auth.router")
+app.use("/api/auth", authRouter)
 
 
 connection()
