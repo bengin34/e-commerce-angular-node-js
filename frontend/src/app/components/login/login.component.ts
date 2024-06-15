@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../common/shared/shared.module';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,11 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
+  constructor(
+    private _toastr: ToastrService
+  ){
+
+  }
 
   login(form:NgForm){
     if(form.valid){
