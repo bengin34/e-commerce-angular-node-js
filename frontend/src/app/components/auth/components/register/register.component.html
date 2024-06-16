@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center" style="margin-top: 75px">
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="text-center">Register Page</h1>
+      </div>
+      <div class="card-body">
+        <form
+          #registerForm="ngForm"
+          autocomplete="off"
+          (ngSubmit)="register(registerForm)"
+        >
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="model.name"
+              name="name"
+              id="name"
+              #name
+              [appValid]="name.validity.valid"
+              required
+              minlength="3"
+            />
+            <div class="invalid-feedback">Name shuld be min 3 characters.</div>
+          </div>
+          <div class="form-group mt-2">
+            <label for="name">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="model.email"
+              name="email"
+              id="email"
+              #email
+              [appValid]="email.validity.valid"
+              required
+              minlength="3"
+            />
+            <div class="invalid-feedback">Enter a valid Email.</div>
+          </div>
+          <div class="form-group mt-2">
+            <label for="name">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="model.password"
+              name="password"
+              id="password"
+              #password
+              [appValid]="password.validity.valid"
+              required
+              minlength="1"
+            />
+            <div class="invalid-feedback">Enter a valid Password.</div>
+          </div>
+          <div class="form-group mt-2">
+            <button [disabled]="!registerForm.valid" class="btn btn-outline-success w-100">Register</button>
+
+            <a routerLink="/login" style="float: right">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
