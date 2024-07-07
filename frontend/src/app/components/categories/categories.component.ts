@@ -3,6 +3,7 @@ import { SharedModule } from '../../common/shared/shared.module';
 import { CategoryModel } from './models/category.model';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../common/services/category.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
@@ -25,5 +26,17 @@ export class CategoriesComponent implements OnInit {
 
   getAll() {
     this._category.getAll((res) => (this.categories = res));
+  }
+
+  add(form: NgForm) {
+    if (form.valid) {
+      this._category.add(form.controls['name'].value, (res) => {
+        this._toastr.success(res.message);
+        let element = document.getElementById('addModalCloseBtn');
+        element?.click();
+        form.reset();
+        this.getAll();
+      });
+    }
   }
 }

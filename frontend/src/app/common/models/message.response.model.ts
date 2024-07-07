@@ -1,3 +1,4 @@
 export class MessageResponseModel{
-    message: string
+    message: string = "";
+
 }
