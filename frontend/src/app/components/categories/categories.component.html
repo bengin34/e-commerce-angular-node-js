@@ -1,81 +1,67 @@
-<div class="card">
-  <div class="card-header">
-    <h4 style="float: left">Categories</h4>
-    <nav style="float: right" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Categories</li>
-      </ol>
-    </nav>
-  </div>
-</div>
+<app-blank title="Categories" sectionTitle="Category List">
 
-<div class="card mt-2">
-  <div class="card-header">
-    <h4>Category List</h4>
+  <div class="form-group d-flex">
+    <div class="col-md-8">
+      <button
+        class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#addModal"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="search"
+        [(ngModel)]="search"
+        class="form-control"
+        placeholder="Enter your keyword"
+      />
+    </div>
   </div>
-  <div class="card-body">
-    <div class="form-group d-flex">
-      <div class="col-md-8">
-        <button
-          class="btn btn-outline-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#addModal"
+
+  <div class="form-group mt-2">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Category name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let category of categories | categoryPipe : search;
+            let index = index
+          "
         >
-          <i class="fa fa-plus"></i>
-        </button>
-      </div>
-
-      <div class="col-md-4">
-        <input
-          type="search"
-          [(ngModel)]="search"
-          class="form-control"
-          placeholder="Enter your keyword"
-        />
-      </div>
-    </div>
-
-    <div class="form-group mt-2">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Category name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="
-              let category of categories | categoryPipe : search;
-              let index = index
-            "
-          >
-            <td>{{ index + 1 }}</td>
-            <td>{{ category.name }}</td>
-            <td>
-              <button
-                class="btn btn-outline-warning btn-sm"
-                (click)="get(category)"
-                data-bs-toggle="modal"
-                data-bs-target="#updateModal"
-              >
-                <i class="fa fa-edit"></i>
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm mx-1"
-                (click)="removeById(category)"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          <td>{{ index + 1 }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <button
+              class="btn btn-outline-warning btn-sm"
+              (click)="get(category)"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm mx-1"
+              (click)="removeById(category)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
+</app-blank>
+
+
 
 <div
   class="modal fade"
