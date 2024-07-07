@@ -3,14 +3,20 @@ const router = express.Router();
 const Category = require("../models/category");
 const { v4: uuidv4 } = require("uuid");
 
+const checkNameExists = async (name, res) => {
+  const existingCategory = await Category.findOne({ name: name });
+  if (existingCategory != null) {
+    res.status(403).json({ message: "This category name is already added!" });
+    return true;
+  }
+  return false;
+};
+
 router.post("/add", async (req, res) => {
   try {
     const { name } = req.body;
 
-    const checkName = await Category.findOne({name: name })
-    if (checkName != null) {
-      res.status(403).json({message: "This category name is already added!"})
-    }
+    if (await checkNameExists(name, res)) return;
 
     const category = new Category({
       _id: uuidv4(),
@@ -38,6 +44,11 @@ router.post("/update", async (req, res) => {
   try {
     const { _id, name } = req.body;
     const category = await Category.findOne({ _id: _id });
+
+    if (category.name != name) {
+      if (await checkNameExists(name, res)) return;
+    }
+
     category.name = name;
     await Category.findByIdAndUpdate(_id, category);
     res.json({ message: "Category record is successfully updated!" });
