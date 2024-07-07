@@ -40,7 +40,7 @@ router.post("/update", async (req, res) => {
   }
 });
 
-router.get("/getAll", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const categories = await Category.find().sort({ name: 1 });
     res.json(categories);

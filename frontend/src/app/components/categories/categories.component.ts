@@ -10,4 +10,7 @@ import { SharedModule } from '../../common/shared/shared.module';
 })
 export class CategoriesComponent {
 
+
+
+  
 }
