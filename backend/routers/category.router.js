@@ -6,6 +6,12 @@ const { v4: uuidv4 } = require("uuid");
 router.post("/add", async (req, res) => {
   try {
     const { name } = req.body;
+
+    const checkName = await Category.findOne({name: name })
+    if (checkName != null) {
+      res.status(403).json({message: "This category name is already added!"})
+    }
+
     const category = new Category({
       _id: uuidv4(),
       name: name,

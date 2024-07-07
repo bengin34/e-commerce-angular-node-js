@@ -16,14 +16,18 @@
   </div>
   <div class="card-body">
     <div class="form-group d-flex">
-      <button
+      <div class="col-md-8">
+        <button
         class="btn btn-outline-primary"
         data-bs-toggle="modal"
         data-bs-target="#addModal"
       >
         <i class="fa fa-plus"></i>
       </button>
-      <div class="col-md-4" style="float: right">
+      </div>
+     
+
+      <div class="col-md-4" >
         <input
           type="search"
           class="form-control"
@@ -31,6 +35,7 @@
         />
       </div>
     </div>
+    
 
     <div class="form-group mt-2">
       <table class="table table-bordered table-hover">
@@ -42,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let category of categories let index= index">
+          <tr *ngFor="let category of categories let index = index">
             <td>{{index + 1}}</td>
             <td>{{category.name}}</td>
             <td>
@@ -74,7 +79,7 @@
         <h5 class="modal-title" id="addModalLabel">Add Category</h5>
         <button
           type="button"
-          id="addModalCloseBtn"
+        
           class="close"
           data-dismiss="modal"
           aria-label="Close"
@@ -86,6 +91,7 @@
             <label for="name">Category Name</label>
             <input
               type="text"
+              class="form-control"
               ngModel
               name="name"
               id="name"
@@ -97,10 +103,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <button type="button"   id="addModalCloseBtn" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
