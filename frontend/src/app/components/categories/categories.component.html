@@ -1,5 +1,4 @@
 <app-blank title="Categories" sectionTitle="Category List">
-
   <div class="form-group d-flex">
     <div class="col-md-8">
       <button
@@ -21,47 +20,34 @@
     </div>
   </div>
 
-  <div class="form-group mt-2">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Category name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let category of categories | categoryPipe : search;
-            let index = index
-          "
+  <app-table [heads]="['#', 'Category Name', 'Actions']">
+    <tr
+      *ngFor="
+        let category of categories | categoryPipe : search;
+        let index = index
+      "
+    >
+      <td>{{ index + 1 }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <button
+          class="btn btn-outline-warning btn-sm"
+          (click)="get(category)"
+          data-bs-toggle="modal"
+          data-bs-target="#updateModal"
         >
-          <td>{{ index + 1 }}</td>
-          <td>{{ category.name }}</td>
-          <td>
-            <button
-              class="btn btn-outline-warning btn-sm"
-              (click)="get(category)"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              <i class="fa fa-edit"></i>
-            </button>
-            <button
-              class="btn btn-outline-danger btn-sm mx-1"
-              (click)="removeById(category)"
-            >
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <i class="fa fa-edit"></i>
+        </button>
+        <button
+          class="btn btn-outline-danger btn-sm mx-1"
+          (click)="removeById(category)"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </app-table>
 </app-blank>
-
-
 
 <div
   class="modal fade"
