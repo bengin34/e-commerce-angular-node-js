@@ -138,7 +138,9 @@ router.post("/removeImageByProductIdAndIndex", async (req, res) => {
       product.imageUrls.splice(index, i);
       await Product.findByIdAndUpdate(_id, product);
       fs.unlink(image.path, () => {});
-      res.json({ message: "Photo is successfully deleted!" }); 
+      res.json({ message: "Photo is successfully deleted!" });
     }
   });
 });
+
+module.exports = router;
