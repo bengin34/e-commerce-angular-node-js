@@ -42,7 +42,7 @@ router.post("/removeById", async (req, res) => {
     }
 
     await Product.findByIdAndRemove(_id);
-    res.json({ message: "Urun kaydi basariyla silindi!" });
+    res.json({ message: "Product is successfully deleted!" });
   });
 });
 
@@ -89,10 +89,35 @@ router.post("/", async (req, res) => {
 
 // get product by id
 
-router.post("/getById", async(req,res) => {
-  response(res,async() => {
-    const {_id} = req.body;
+router.post("/getById", async (req, res) => {
+  response(res, async () => {
+    const { _id } = req.body;
     let product = await Product.findById(_id);
-    res.json(product)
-  } )
-})
+    res.json(product);
+  });
+});
+
+//update  product
+
+router.post("/update", upload.array(images), async (req, res) => {
+  response(res, async () => {
+    const { _id, name, stock, price, categories } = req.body;
+
+    let product = await Product.findById(_id);
+    for (const image of product.imageUrls) {
+      fs.unlink(image.path, () => {});
+    }
+
+    let imageUrls;
+    imageUrls = [...product.imageUrls, ...req.files];
+    product = {
+      name: name.toUpperCase(),
+      stock: stock,
+      price: price,
+      imageUrls: imageUrls,
+      categories: categories,
+    };
+    await Product.findByIdAndUpdate(_id, product);
+    res.json({ message: "Product is successfully updated" });
+  });
+});
