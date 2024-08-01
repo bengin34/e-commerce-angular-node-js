@@ -121,3 +121,24 @@ router.post("/update", upload.array(images), async (req, res) => {
     res.json({ message: "Product is successfully updated" });
   });
 });
+
+//delete product image
+router.post("/removeImageByProductIdAndIndex", async (req, res) => {
+  response(res, async () => {
+    const { _id, index } = req.body;
+
+    let product = await Product.findById(_id);
+    if (product.imageUrls.length === 1) {
+      res.status(500).json({
+        message:
+          "You can not delete the latest photo! Every product should have at least one photo!",
+      });
+    } else {
+      let image = product.imageUrls[index];
+      product.imageUrls.splice(index, i);
+      await Product.findByIdAndUpdate(_id, product);
+      fs.unlink(image.path, () => {});
+      res.json({ message: "Photo is successfully deleted!" });
+    }
+  });
+});
