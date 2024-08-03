@@ -143,4 +143,15 @@ router.post("/removeImageByProductIdAndIndex", async (req, res) => {
   });
 });
 
+//  change products availabilty
+router.post("/changeActiveStatus", async (req, res) => {
+  response(res, async () => {
+    const { _id } = req.body;
+    let product = await Product.findById(_id);
+    product.isActive = !product.isActive;
+    await Product.findByIdAndUpdate(_id, product);
+    res.json({ message: "Product's status has changed!" });
+  });
+});
+
 module.exports = router;
